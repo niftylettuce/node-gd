@@ -16,7 +16,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <gd.h>
 #include <v8.h>
 #include <node.h>
-#include <node_events.h>
 #include <string.h>
 #include <assert.h>
 
@@ -29,7 +28,7 @@ using namespace node;
 #define REQ_ARGS(N)                                                     \
   if (args.Length() < (N))                                              \
     return ThrowException(Exception::TypeError(                         \
-                             String::New("Expected " #N "arguments"))); 
+                             String::New("Expected " #N "arguments")));
 
 #define REQ_STR_ARG(I, VAR)                                             \
   if (args.Length() <= (I) || !args[I]->IsString())                     \
@@ -108,17 +107,17 @@ using namespace node;
 	delete[] data;                                                      \
 	return scope.Close(result);
 
-#define COLOR_ANTIALIASED    gdAntiAliased 
-#define COLOR_BRUSHED        gdBrushed 
-#define COLOR_STYLED         gdStyled 
-#define COLOR_STYLEDBRUSHED  gdStyledBrushed 
-#define COLOR_TITLED         gdTiled 
-#define COLOR_TRANSPARENT    gdTransparent 
+#define COLOR_ANTIALIASED    gdAntiAliased
+#define COLOR_BRUSHED        gdBrushed
+#define COLOR_STYLED         gdStyled
+#define COLOR_STYLEDBRUSHED  gdStyledBrushed
+#define COLOR_TITLED         gdTiled
+#define COLOR_TRANSPARENT    gdTransparent
 
 class Gd
 {
 public:
-	static void Init(Handle<Object> target) 
+	static void Init(Handle<Object> target)
 	{
 		HandleScope scope;
 
@@ -191,7 +190,7 @@ protected:
 		fclose(in);
 
 		RETURN_IMAGE(im)
-	} 
+	}
 
 	static Handle<Value> CreateFromGd2PartPtr (const Arguments &args)
 	{
@@ -210,7 +209,7 @@ protected:
 		delete[] buf;
 
 		RETURN_IMAGE(im)
-	} 
+	}
 
 	static Handle<Value> TrueColor (const Arguments &args)
 	{
@@ -867,7 +866,7 @@ protected:
 		static Handle<Value> SetThickness (const Arguments &args)
 		{
 			Image *im = ObjectWrap::Unwrap<Image>(args.This());
-			
+
 			REQ_INT_ARG(0, thickness)
 
 			gdImageSetThickness(*im, thickness);
@@ -878,7 +877,7 @@ protected:
 		static Handle<Value> AlphaBlending (const Arguments &args)
 		{
 			Image *im = ObjectWrap::Unwrap<Image>(args.This());
-			
+
 			REQ_INT_ARG(0, blending)
 			gdImageAlphaBlending(*im, blending);
 
@@ -898,12 +897,12 @@ protected:
 		static Handle<Value> SetClip (const Arguments &args)
 		{
 			Image *im = ObjectWrap::Unwrap<Image>(args.This());
-			
+
 			REQ_ARGS(4);
-			REQ_INT_ARG(0, x1); 
-			REQ_INT_ARG(1, y1); 
-			REQ_INT_ARG(2, x2); 
-			REQ_INT_ARG(3, y2); 
+			REQ_INT_ARG(0, x1);
+			REQ_INT_ARG(1, y1);
+			REQ_INT_ARG(2, x2);
+			REQ_INT_ARG(3, y2);
 
 			gdImageSetClip(*im, x1, y1, x2, y2);
 
